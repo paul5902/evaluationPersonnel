@@ -1,6 +1,7 @@
 package evaluationPersonnel;
 
 import java.sql.Connection;
+import java.sql.*;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +13,9 @@ public class PersonneMapper {
 	Connection connection;
 
 	public PersonneMapper() throws SQLException {
-		this.connection = DriverManager.getConnection("oracle.univ-lille1.fr", "letailleur", "saturnin");
+		System.out.println("tentative connexion");
+		this.connection = DriverManager.getConnection("oracle.fil.univ-lille1.fr", "letailleur", "saturnin");
+		System.out.println("CONNECTED");
 	}
 
 	public Personne getPersonne(int id) throws SQLException {

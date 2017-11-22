@@ -14,7 +14,10 @@ public class PersonneVirtualProxy implements PersonneInterface {
 
 	public Personne getPersonne() throws SQLException {
 		if (personne == null) {
-			personne = new PersonneMapper().getPersonne(this.id);
+			System.out.println("ICI");
+			PersonneMapper pm = new PersonneMapper();
+			System.out.println("là");
+			personne = pm.getPersonne(this.id);
 		}
 		return personne;
 	}

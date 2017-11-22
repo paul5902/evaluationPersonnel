@@ -1,6 +1,7 @@
 package evaluationPersonnel;
 
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 
@@ -22,7 +23,14 @@ public class ConnectionButton extends JButton implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		System.out.println(textField.getText());
+		int saisie = Integer.parseInt(textField.getText());
+		PersonneVirtualProxy vp = new PersonneVirtualProxy(saisie);
+		try {
+			Personne personne = vp.getPersonne();
+			System.out.println(personne.getPrenom());
+		} catch (SQLException e) {
+			System.out.println("ID Inexistant");
+		}
 		
 	}
 
