@@ -17,10 +17,11 @@ public class FenetreLogin extends JFrame {
 	    this.setSize(600, 300);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
-	    //Ajout du bouton à notre content pane
 	    JTextField textField = new JTextField();
-	    this.getContentPane().add(textField, BorderLayout.NORTH);
-	    this.getContentPane().add(new ConnectionButton("Connexion",textField), BorderLayout.SOUTH);
+	    pan.setLayout(new BorderLayout());
+	    pan.add(textField, BorderLayout.NORTH);
+	    pan.add(new ConnectionButton("Connexion",textField,this), BorderLayout.SOUTH);
+	    this.setContentPane(pan);
 	    
 	    
 	    this.setVisible(true);

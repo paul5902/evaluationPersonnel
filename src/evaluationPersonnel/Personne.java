@@ -1,15 +1,17 @@
 package evaluationPersonnel;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Personne implements PersonneInterface {
+public class Personne  {
 	
 	private int id;
 	private String nom;
 	private String prenom;
 	private String evaluation;
 	private Personne lePere;
-	private ArrayList<Personne> lesFils;
+	private List<Personne> lesFils;
 	
 	public Personne(int id, String nom, String prenom) {
 		this.id = id;
@@ -30,32 +32,30 @@ public class Personne implements PersonneInterface {
 		this.evaluation = evaluation;
 	}
 
-	@Override
-	public ArrayList<Personne> getLesFils() {
-		return this.lesFils;
+	public List<Personne> getLesFils(){
+		return lesFils;
 	}
 
-	@Override
 	public String getNom() {
 		return this.nom;
 	}
 
-	@Override
 	public int getId() {
 		return this.id;
 	}
+	
+	public void setLesFils(List<Personne> lesFils) {
+		this.lesFils = lesFils;
+	}
 
-	@Override
 	public String getPrenom() {
 		return this.prenom;
 	}
 
-	@Override
 	public String getEvaluation() {		
 		return this.evaluation;
 	}
 
-	@Override
 	public Personne getLePere() {
 		return this.lePere;
 	}
