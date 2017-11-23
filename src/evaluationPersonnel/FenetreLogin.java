@@ -28,6 +28,10 @@ public class FenetreLogin extends JFrame {
 
 	}
 	
+	public JPanel getLoginPanel() {
+		return this.pan;
+	}
+	
 	public static void main(String[] args) {
 		FenetreLogin fl = new FenetreLogin();
 		fl.display();

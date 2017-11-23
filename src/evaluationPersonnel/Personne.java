@@ -59,5 +59,9 @@ public class Personne  {
 	public Personne getLePere() {
 		return this.lePere;
 	}
+	
+	public String getIdentite() {
+		return this.nom + " " + this.prenom;
+	}
 
 }
