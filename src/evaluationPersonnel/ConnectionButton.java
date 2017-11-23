@@ -12,13 +12,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import javafx.scene.layout.Border;
 
 public class ConnectionButton extends JButton implements MouseListener {
 	
@@ -65,17 +71,74 @@ public class ConnectionButton extends JButton implements MouseListener {
 						SwingUtilities.updateComponentTreeUI(fl);
 					}
 				});
-				panelBoutonAnnuler.add(new JButton("Annuler"));
+				panelBoutonAnnuler.add(annuler);
 				gridInfos.setLayout(new GridLayout(3,0));
 				gridInfos.add(new JLabel("Vous : " + personne.getIdentite()));
-				gridInfos.add(new JLabel("Votre père : " + personne.getLePere().getIdentite()));
-				gridInfos.add(new JLabel("Votre évaluation : " + personne.getEvaluation()));
+				if(personne.getLePere()!=null) {
+					gridInfos.add(new JLabel("Votre pere : " + personne.getLePere().getIdentite()));
+				}
+				
+				gridInfos.add(new JLabel("Votre Evaluation : " + personne.getEvaluation()));
 				
 				pan.add(bottomInfo,BorderLayout.CENTER);
-			    //pan.add(affichageInfosPersonne);
-			    //pan.add(new JButton("Annuler"));
-			    //pan.add(new JTextField("Vos fils"));
-			    //pan.add(new JLabel("toto"));
+				bottomInfo.setLayout(new GridLayout(3,0));
+				
+				
+				
+			    
+				List<Personne> lesFils = personne.getLesFils();
+				JList jlistFils = new JList(lesFils.toArray());
+				
+				bottomInfo.add(new JLabel("Vos fils :"));
+				JPanel listeFilsEtEval = new JPanel();
+				listeFilsEtEval.setLayout(new GridLayout(0,2));
+				listeFilsEtEval.add(jlistFils);
+				JPanel eval = new JPanel();
+				eval.setLayout(new GridLayout(3,0));
+				eval.add(new JLabel("Evaluation de"));
+				JLabel nomFilsSelection = new JLabel("");
+				eval.add(nomFilsSelection);
+				JTextField saisieEvalFils = new JTextField();
+				eval.add(saisieEvalFils);
+				listeFilsEtEval.add(eval);
+				bottomInfo.add(listeFilsEtEval);
+				JButton valider = new JButton("Valider");
+				valider.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						for(Personne p : lesFils) {
+							String selection = jlistFils.getSelectedValue().toString();
+							String[] parties = selection.split(" ");
+							System.out.println(p.getNom()+p.getPrenom());
+							if(p.getNom().equals(parties[0]) && p.getPrenom().equals(parties[1])) {
+								System.out.println("CORRESPOND");
+								p.setEvaluation(saisieEvalFils.getText());
+							}
+						}
+						UnitOfWork.getInstance().commit();
+					}
+				});
+				
+				bottomInfo.add(valider);
+				jlistFils.addListSelectionListener(new ListSelectionListener() {
+					
+					@Override
+					public void valueChanged(ListSelectionEvent e) {
+						if (e.getValueIsAdjusting() == false) {
+
+					        if (jlistFils.getSelectedIndex() == -1) {
+					            
+
+					        } else {
+					        	nomFilsSelection.setText(jlistFils.getSelectedValue().toString());
+					        }
+					    }
+						
+					}
+				});
+				
+				
 				fl.setContentPane(pan);
 				SwingUtilities.updateComponentTreeUI(fl);
 			}

@@ -56,6 +56,7 @@ public class PersonneMapper {
 
 	public Personne resultToPerson(ResultSet result) throws SQLException {
 			Personne laPersonne = new Personne(result.getInt(1), result.getString(2), result.getString(3));
+			laPersonne.add(UnitOfWork.getInstance());
 			laPersonne.setEvaluation(result.getString(4));
 			personnes.put(result.getInt(1), new WeakReference<Personne>(laPersonne));
 			Personne lePere = this.getPersonne(this.getIdPere(result.getInt(1)));
@@ -104,6 +105,14 @@ public class PersonneMapper {
 
 		return ids;
 
+	}
+
+	public void update(Personne p) throws SQLException {
+		PreparedStatement state = connection.prepareStatement("UPDATE PERSONNE SET EVALUATION=? WHERE id=?");
+		state.setString(1, p.getEvaluation());
+		state.setInt(2,p.getId());
+		state.executeQuery();
+		
 	}
 
 }

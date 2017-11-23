@@ -14,7 +14,7 @@ public class FenetreLogin extends JFrame {
 
 	public void display() {
 	    this.setTitle("Login");
-	    this.setSize(600, 300);
+	    this.setSize(300, 600);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
 	    JTextField textField = new JTextField();
