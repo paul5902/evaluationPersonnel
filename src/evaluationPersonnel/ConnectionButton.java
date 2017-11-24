@@ -86,8 +86,8 @@ public class ConnectionButton extends JButton implements MouseListener {
 				
 				
 			    
-				List<Personne> lesFils = personne.getLesFils();
-				JList jlistFils = new JList(lesFils.toArray());
+				final List<Personne> lesFils = personne.getLesFils();
+				final JList jlistFils = new JList(lesFils.toArray());
 				
 				bottomInfo.add(new JLabel("Vos fils :"));
 				JPanel listeFilsEtEval = new JPanel();
@@ -96,9 +96,9 @@ public class ConnectionButton extends JButton implements MouseListener {
 				JPanel eval = new JPanel();
 				eval.setLayout(new GridLayout(3,0));
 				eval.add(new JLabel("Evaluation de"));
-				JLabel nomFilsSelection = new JLabel("");
+				final JLabel nomFilsSelection = new JLabel("");
 				eval.add(nomFilsSelection);
-				JTextField saisieEvalFils = new JTextField();
+				final JTextField saisieEvalFils = new JTextField();
 				eval.add(saisieEvalFils);
 				listeFilsEtEval.add(eval);
 				bottomInfo.add(listeFilsEtEval);

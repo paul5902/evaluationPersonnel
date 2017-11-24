@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class PersonneMapper {
 
-	private Map<Integer, WeakReference<Personne>> personnes;
+	static Map<Integer, WeakReference<Personne>> personnes;
 	private Connection connection;
 	static PersonneMapper instance;
 
@@ -49,31 +49,32 @@ public class PersonneMapper {
 		state.setInt(1, id);
 		ResultSet result = state.executeQuery();
 		result.next();
-		return this.resultToPerson(result);
+		return resultToPerson(result);
 		}
 
 	}
 
 	public Personne resultToPerson(ResultSet result) throws SQLException {
 			Personne laPersonne = new Personne(result.getInt(1), result.getString(2), result.getString(3));
-			laPersonne.add(UnitOfWork.getInstance());
+			
 			laPersonne.setEvaluation(result.getString(4));
 			personnes.put(result.getInt(1), new WeakReference<Personne>(laPersonne));
-			Personne lePere = this.getPersonne(this.getIdPere(result.getInt(1)));
+			Personne lePere = getPersonne(getIdPere(result.getInt(1)));
 			if(lePere!=null) {
 				laPersonne.setLePere(lePere);
 			}
 			FilsFactory ff = new FilsFactory(result.getInt(1), new PersonneMapper());
 			laPersonne.setLesFils(new VirtualProxyBuilder<List<Personne>>(List.class, ff).getProxy());
+			laPersonne.add(UnitOfWork.getInstance());
 			return laPersonne;
 
 	}
 
 	public ArrayList<Personne> getLesFils(int id) throws SQLException {
-		ArrayList<Integer> lesIdFils = this.getIdFils(id);
+		ArrayList<Integer> lesIdFils = getIdFils(id);
 		ArrayList<Personne> lesFils = new ArrayList<Personne>();
 		for (int i = 0; i <= lesIdFils.size() - 1; i++) {
-			Personne fils = this.getPersonne(lesIdFils.get(i));
+			Personne fils = getPersonne(lesIdFils.get(i));
 			lesFils.add(fils);
 		}
 		return lesFils;

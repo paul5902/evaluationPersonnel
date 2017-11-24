@@ -14,7 +14,7 @@ public class FenetreLogin extends JFrame {
 
 	public void display() {
 	    this.setTitle("Login");
-	    this.setSize(300, 600);
+	    this.setSize(400, 200);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
 	    JTextField textField = new JTextField();
@@ -22,7 +22,6 @@ public class FenetreLogin extends JFrame {
 	    pan.add(textField, BorderLayout.NORTH);
 	    pan.add(new ConnectionButton("Connexion",textField,this), BorderLayout.SOUTH);
 	    this.setContentPane(pan);
-	    
 	    
 	    this.setVisible(true);
 
