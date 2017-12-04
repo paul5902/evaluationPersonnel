@@ -53,9 +53,6 @@ public class ConnectionButton extends JButton implements MouseListener {
 				JPanel bottomInfo = new JPanel();
 				JPanel gridInfos = new JPanel();
 				JPanel panelBoutonAnnuler = new JPanel();
-
-				//String infoPere = "Votre père : " + personne.getLePere().getIdentite();
-				//JLabel affichageInfosPersonne = new JLabel(infoPersonne + "\n" + infoPere);
 				pan.setLayout(new BorderLayout());
 				pan.add(topInfo, BorderLayout.NORTH);
 				topInfo.setLayout(new BorderLayout());

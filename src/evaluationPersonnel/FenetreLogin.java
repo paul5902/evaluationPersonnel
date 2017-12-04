@@ -1,9 +1,11 @@
 package evaluationPersonnel;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -18,9 +20,15 @@ public class FenetreLogin extends JFrame {
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
 	    JTextField textField = new JTextField();
-	    pan.setLayout(new BorderLayout());
-	    pan.add(textField, BorderLayout.NORTH);
-	    pan.add(new ConnectionButton("Connexion",textField,this), BorderLayout.SOUTH);
+	    pan.setLayout(new GridLayout(2, 1));
+	    JPanel topContent = new JPanel();
+	    topContent.setLayout(new GridLayout(1,2));
+	    topContent.add(new JLabel("Votre id:"));
+	    topContent.add(textField);
+	    pan.add(topContent);
+	    JPanel southContent = new JPanel();
+	    southContent.add(new ConnectionButton("Ok",textField,this));
+	    pan.add(southContent);
 	    this.setContentPane(pan);
 	    
 	    this.setVisible(true);

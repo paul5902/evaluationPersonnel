@@ -23,12 +23,10 @@ public class Personne implements IDomainObject {
 	}
 	
 	public void add(Observateur o) {
-		System.out.println("Personne: Ajout d'un observateur!");
 		obs.add(o);
 	}
 	
 	public void notifier() {
-		System.out.println("Personne: event detecte! on notifie tous les observateurs...");
 		for (Observateur o : obs) {
 			o.action(this);
 		}
